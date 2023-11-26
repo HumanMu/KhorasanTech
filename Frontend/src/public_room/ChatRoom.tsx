@@ -50,7 +50,7 @@ const ChatRoom = () => {
             <Box {...MessageArea}>
               <HStack display="flex" alignItems="center">
                 <Input
-                  //value={message}
+                  value={messageIn}
                   onChange={(e) => setMessage(e.target.value)}
                   {...MessageInputBox}
                   _hover={{ borderColor: "transparent" }}
@@ -66,9 +66,11 @@ const ChatRoom = () => {
             </Box>
           </VStack>
           <Flex {...UserListView}>
-            {users.map((user, index) => (
-              <UserCard key={user.userId} users={users[index]}></UserCard>
-            ))}
+            <VStack spacing={0}>
+              {users.map((user, index) => (
+                <UserCard key={user.userId} users={users[index]} bg={index}></UserCard>
+              ))}
+            </VStack>
           </Flex>
         </HStack>
       </Center>
@@ -77,12 +79,12 @@ const ChatRoom = () => {
 };
 
 const UserListView = {
-  height: "78vh",
-  width: "15vw",
+  height: "75vh",
   borderWidth: "2px",
   borderColor: "red",
   marginTop: ["0vh", "7vh"],
   borderRadius: "10px",
+  padding: "3px",
 };
 
 const MessageArea = {
