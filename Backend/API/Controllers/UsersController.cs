@@ -6,12 +6,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
-public class AccountController : BaseApiController
+public class UsersController : BaseApiController
 {
-    private readonly ILogger<AccountController> _logger;
+    private readonly ILogger<UsersController> _logger;
     private readonly DataContext _context;
 
-    public AccountController(ILogger<AccountController> logger, DataContext context)
+    public UsersController(ILogger<UsersController> logger, DataContext context)
     {
         _logger = logger;
         _context = context;
@@ -24,9 +24,9 @@ public class AccountController : BaseApiController
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<User>> GetUser(string username)
+    public async Task<ActionResult<User>> GetUser(int id)
     {
-        var user = await _context.Users.FindAsync(username);
+        var user = await _context.Users.FindAsync(id);
         if(user == null) return Problem(statusCode: 400, title: "User not exist");
 
         return user;

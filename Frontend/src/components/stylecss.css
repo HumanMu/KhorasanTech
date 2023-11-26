@@ -1,0 +1,5 @@
+@media (max-width: 768px) {
+  .user-list-view {
+    display: none;
+  }
+}
