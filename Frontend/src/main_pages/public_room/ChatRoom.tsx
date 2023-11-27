@@ -1,17 +1,16 @@
 import { Center, VStack, Text } from "@chakra-ui/layout";
 import { Box, Flex, HStack, IconButton, Input } from "@chakra-ui/react";
 import { ArrowRightIcon } from "@chakra-ui/icons";
-import MessageCard from "../components/MessageCard";
+import "../../components/stylecss.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import {
   GetGroupMessages,
   SendGroupMessages,
-} from "../services/PublicChatService";
-import { useState, useEffect } from "react";
-import "../components/stylecss.css";
-import agent from "../api/Agent";
-import UserCard from "../components/UserCard";
-import { User } from "../components/models/User";
-import axios from "axios";
+} from "../../api/services/PublicChatService";
+import { User } from "../../models/User";
+import MessageCard from "../../components/MessageCard";
+import UserCard from "../../components/UserCard";
 
 const ChatRoom = () => {
   const messageList = GetGroupMessages();
@@ -68,7 +67,11 @@ const ChatRoom = () => {
           <Flex {...UserListView}>
             <VStack spacing={0}>
               {users.map((user, index) => (
-                <UserCard key={user.userId} users={users[index]} bg={index}></UserCard>
+                <UserCard
+                  key={user.userId}
+                  users={users[index]}
+                  bg={index}
+                ></UserCard>
               ))}
             </VStack>
           </Flex>

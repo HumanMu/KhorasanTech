@@ -1,7 +1,11 @@
--- SQLite
+-- Users
 INSERT INTO Users (UserId, UserName, FirstName, LastName, Email, ImageUrl)
 VALUES (1, "human", "Human", "Muzaffari", "hm@gmail.com", "");
 INSERT INTO Users (UserId, UserName, FirstName, LastName, Email, ImageUrl)
 VALUES (2, "human2", "Human2", "Muzaffari2", "hm2@gmail.com", "");
 INSERT INTO Users (UserId, UserName, FirstName, LastName, Email, ImageUrl)
 VALUES (3, "human3", "Human3", "Muzaffari3", "hm3@gmail.com", "");
+
+-- Activities
+INSERT INTO Activities (Id)
+

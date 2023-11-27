@@ -1,12 +1,12 @@
 import { Box, HStack, Text } from "@chakra-ui/layout";
-import { User } from "./models/User";
+import { User } from "../models/User";
 
-const UserCard = ({ users, bg }: { users: User, bg:number }) => {
+const UserCard = ({ users, bg }: { users: User; bg: number }) => {
   let bakcground = bg % 2 === 0 ? "#eb9694" : "#e06f84";
   return (
-    <Box {...Card({b: bakcground})}>
-      <HStack >
-        <Text >
+    <Box {...Card({ b: bakcground })}>
+      <HStack>
+        <Text>
           {users.imageUrl} {users.firstName} {users.lastName}
         </Text>
       </HStack>
@@ -16,7 +16,7 @@ const UserCard = ({ users, bg }: { users: User, bg:number }) => {
 
 export default UserCard;
 
-const Card = ({b} : {b:string}) => ({
+const Card = ({ b }: { b: string }) => ({
   bg: b,
   height: "40px",
   width: "13vw",

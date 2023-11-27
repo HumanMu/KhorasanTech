@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { User } from "../components/models/User";
+import { User } from "../models/User";
 
 axios.defaults.baseURL = "http://localhost:5000/api";
 

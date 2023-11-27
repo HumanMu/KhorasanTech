@@ -1,61 +1,70 @@
-import { 
-  Box, 
-  Text, 
-  Collapse, 
-  Icon, 
-  Stack, 
+import {
+  Box,
+  Text,
+  Collapse,
+  Icon,
+  Stack,
   useDisclosure,
-  useColorModeValue, 
-} from "@chakra-ui/react"
-import { ChevronDownIcon } from "@chakra-ui/icons"
-import { NAV_ITEMS, NavItem } from "../NavItems"
+  useColorModeValue,
+} from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
+import { NAV_ITEMS, NavItem } from "../NavItems";
 
 export const MobileNav = () => {
   return (
-    <Stack bg={useColorModeValue('white', 'gray.800')} p={4} display={{ md: 'none' }}>
+    <Stack
+      bg={useColorModeValue("white", "gray.800")}
+      p={4}
+      display={{ md: "none" }}
+    >
       {NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} />
       ))}
     </Stack>
-  )
-}
+  );
+};
 
 export const MobileNavItem = ({ label, children, href }: NavItem) => {
-  const { isOpen, onToggle } = useDisclosure()
+  const { isOpen, onToggle } = useDisclosure();
 
   return (
     <Stack spacing={4} onClick={children && onToggle}>
       <Box
         py={2}
         as="a"
-        href={href ?? '#'}
+        href={href ?? "#"}
         justifyContent="space-between"
         alignItems="center"
         _hover={{
-          textDecoration: 'none',
-        }}>
-        <Text fontWeight={600} color={useColorModeValue('gray.600', 'gray.200')}>
+          textDecoration: "none",
+        }}
+      >
+        <Text
+          fontWeight={600}
+          color={useColorModeValue("gray.600", "gray.200")}
+        >
           {label}
         </Text>
         {children && (
           <Icon
             as={ChevronDownIcon}
-            transition={'all .25s ease-in-out'}
-            transform={isOpen ? 'rotate(180deg)' : ''}
+            transition={"all .25s ease-in-out"}
+            transform={isOpen ? "rotate(180deg)" : ""}
             w={6}
             h={6}
           />
         )}
       </Box>
 
-      <Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>
+      <Collapse in={isOpen} animateOpacity style={{ marginTop: "0!important" }}>
         <Stack
           mt={2}
           pl={4}
           borderLeft={1}
-          borderStyle={'solid'}
-          borderColor={useColorModeValue('gray.200', 'gray.700')}
-          align={'start'}>
+          borderStyle={"solid"}
+          borderColor={useColorModeValue("gray.200", "gray.700")}
+          align={"start"}
+        >
           {children &&
             children.map((child) => (
               <Box as="a" key={child.label} py={2} href={child.href}>
@@ -65,5 +74,5 @@ export const MobileNavItem = ({ label, children, href }: NavItem) => {
         </Stack>
       </Collapse>
     </Stack>
-  )
-}
+  );
+};
