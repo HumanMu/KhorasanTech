@@ -7,9 +7,9 @@ namespace API.Data
 {
     public class Seed
     {
-        public static async Task SeedData(DataContext context)
+        public static async Task SeedActivity(DataContext context)
         {
-            if(context.Activities.Any()) return;
+            if (context.Activities.Any()) return;
 
             var activities = new List<Activity>
             {
@@ -50,5 +50,46 @@ namespace API.Data
             await context.SaveChangesAsync();
         }
 
+        public static async Task SeedUsers(DataContext context)
+        {
+            if (context.Users.Any()) return;
+            var users = new List<User>
+            {
+                new() {
+                    UserId = 1,
+                    UserName = "human",
+                    FirstName = "Human",
+                    LastName = "Muzaffari",
+                    Email = "hm@gmail.com",
+                    ImageUrl = "No Image"
+                },
+                new() {
+                    UserId = 2,
+                    UserName = "human2",
+                    FirstName = "Human2",
+                    LastName = "Muzaffari2",
+                    Email = "hm2@gmail.com",
+                    ImageUrl = "No Image"
+                },
+                new() {
+                    UserId = 3,
+                    UserName = "human3",
+                    FirstName = "Human3",
+                    LastName = "Muzaffari3",
+                    Email = "hm3@gmail.com",
+                    ImageUrl = "No Image"
+                },
+                new() {
+                    UserId = 4,
+                    UserName = "human4",
+                    FirstName = "Human4",
+                    LastName = "Muzaffari4",
+                    Email = "hm4@gmail.com",
+                    ImageUrl = "No Image"
+                }
+            };
+            await context.Users.AddRangeAsync(users);
+            await context.SaveChangesAsync();
+        }
     }
 }

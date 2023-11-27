@@ -17,8 +17,10 @@ public class UsersController : BaseApiController
         _context = context;
     }
 
+
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<User>>> GetUsers(){
+    public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+    {
         var users = await _context.Users.ToListAsync();
         return users;
     }
@@ -27,7 +29,7 @@ public class UsersController : BaseApiController
     public async Task<ActionResult<User>> GetUser(int id)
     {
         var user = await _context.Users.FindAsync(id);
-        if(user == null) return Problem(statusCode: 400, title: "User not exist");
+        if (user == null) return Problem(statusCode: 400, title: "User not exist");
 
         return user;
     }
