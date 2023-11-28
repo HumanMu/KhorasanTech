@@ -1,5 +1,7 @@
 
 using API.Data;
+using API.Interfaces;
+using API.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,7 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("KhorasanTechDatabase"));
 });
 
+builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddCors();
 var app = builder.Build();
 
