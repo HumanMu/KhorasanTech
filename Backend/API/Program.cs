@@ -28,7 +28,7 @@ try
     var context = services.GetRequiredService<DataContext>();
     await context.Database.MigrateAsync();
     await Seed.SeedActivity(context);
-    await Seed.SeedUsers(context);
+    //await Seed.SeedUsers(context);
 
 }
 catch (Exception e)

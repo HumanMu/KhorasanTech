@@ -50,6 +50,7 @@ namespace API.Data
             await context.SaveChangesAsync();
         }
 
+/*
         public static async Task SeedUsers(DataContext context)
         {
             if (context.Users.Any()) return;
@@ -90,6 +91,6 @@ namespace API.Data
             };
             await context.Users.AddRangeAsync(users);
             await context.SaveChangesAsync();
-        }
+        }*/
     }
 }
