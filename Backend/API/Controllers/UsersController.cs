@@ -1,6 +1,5 @@
 using API.Data;
 using API.Entities;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,12 +7,10 @@ namespace API.Controllers;
 
 public class UsersController : BaseApiController
 {
-    private readonly ILogger<UsersController> _logger;
     private readonly DataContext _context;
 
-    public UsersController(ILogger<UsersController> logger, DataContext context)
+    public UsersController(DataContext context)
     {
-        _logger = logger;
         _context = context;
     }
 
