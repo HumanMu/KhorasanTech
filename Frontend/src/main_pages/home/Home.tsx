@@ -1,19 +1,22 @@
 import { Box } from "@chakra-ui/layout";
 import { VStack } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import ActivityCard from "../../components/ActivityCard";
 import { Activity } from "../../models/Activity";
+import agent from "../../api/Agent";
 
 const Home = () => {
   const [activities, setActivities] = useState<Activity[]>([]);
 
   useEffect(() => {
-    axios
-      .get<Activity[]>("http://localhost:5000/api/activities")
-      .then((response) => {
-        setActivities(response.data);
+    agent.Activities.list().then((response) => {
+      let activities: Activity[] = [];
+      response.forEach((activity) => {
+        activity.date = activity.date.split("T")[0];
+        activities.push(activity);
       });
+      setActivities(activities);
+    });
   }, []);
 
   return (
@@ -40,5 +43,6 @@ const ActivityLayout = {
   width: "50vw",
   height: "100%",
   paddingLeft: "5px",
+  paddingTop: "50px",
   bg: "blackAlpha.100",
 };

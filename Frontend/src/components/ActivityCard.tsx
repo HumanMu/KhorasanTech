@@ -17,10 +17,9 @@ const ActivityCard = ({ activity }: { activity: Activity }) => {
 export default ActivityCard;
 
 const CardView = {
-  height: "25vh",
   width: "100%",
-  paddingTop: "5vh",
   paddingLeft: "10px",
+  marginBottom: "30px",
 };
 
 const cityAndDate = {
