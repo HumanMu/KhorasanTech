@@ -20,8 +20,6 @@ export const Login = () => {
       console.log("Login failed!");
     }
   }
-
-
   
   return (
     <>    
@@ -38,33 +36,32 @@ export const Login = () => {
                   <Stack>
                     <VStack >
                       <FormControl >
-                        <FormLabel {...LoginTextLabel('white')}> Email address</FormLabel>
-                        <Input {...InputFormText} 
+                        <FormLabel htmlFor='email' {...LoginTextLabel('white')}> Email address</FormLabel>
+                        <Input id='email' {...InputFormText} 
                           onChange={(e) => setEmail(e.target.value)}
                         ></Input>
                       </FormControl>
                     </VStack>
                     <FormControl>
                       <HStack justifyContent='space-between'>
-                        <FormLabel {...LoginTextLabel('white')}> Password</FormLabel>
+                        <FormLabel htmlFor='password' {...LoginTextLabel('white')}> Password</FormLabel>
                         <ChakraLink {...LoginTextLabel('#001a2e')}> Forgot password?</ChakraLink>
                       </HStack>
-                      <Input {...InputFormPassword}
+                      <Input id='password' {...InputFormPassword}
                         onChange={(e) => setPassword(e.target.value)}
                       ></Input>                  
                     </FormControl>
                   </Stack>
-                  <Button {...LoginButtonProps}  
+                  <Button id='submit' {...LoginButtonProps}  
                     style={{ position: 'absolute', right: 0 }}
-                    onClick={signIn}
-                  > Login </Button>
+                    onClick={signIn} > Login 
+                  </Button>
 
                 </CardBody>
               </Card>
             </CardBody>
             <ChakraLink {...linkProps} 
-              as={ReactRouterLink} to='/register'
-              >Create account
+              as={ReactRouterLink} to='/register' >Create account
             </ChakraLink>
           </Card>
         </Flex>
@@ -133,6 +130,7 @@ const InputFormText = {
   borderColor:'#2f2724',
   borderRadius:'10px',
   height: '30px',
+  autoComplete:"email",
 }
 
 const InputFormPassword = {
@@ -140,7 +138,9 @@ const InputFormPassword = {
   bg:'white',
   borderColor:'#2f2724',
   borderRadius:'10px',
-  height: '30px'
+  height: '30px',
+  autoComplete:'off',
+  
 }
 
 const LoginButton = () =>{

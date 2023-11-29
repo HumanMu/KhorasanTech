@@ -53,64 +53,44 @@ export const SignUp = () => {
                   <Stack>
                     <VStack>
                       <FormControl>
-                        <FormLabel {...LoginTextLabel("white")}>
-                          {" "}
-                          Name
-                        </FormLabel>
-                        <Input
-                          {...InputFormUsername}
+                        <FormLabel htmlFor="firstname" {...SignupTextLabel("white")}> First name </FormLabel>
+                        <Input id="firstname"  {...InputFormUsername}
                           onChange={(e) => setName(e.target.value)}
                         ></Input>
-                        <FormLabel {...LoginTextLabel("white")}>
-                          {" "}
-                          Last name
-                        </FormLabel>
-                        <Input
-                          {...InputFormUsername}
+                        
+                        <FormLabel htmlFor="lastname"  {...SignupTextLabel("white")}> Last name </FormLabel>
+                        <Input id="lastname"  {...InputFormUsername}
                           onChange={(e) => setLastName(e.target.value)}
                         ></Input>
-                        <FormLabel {...LoginTextLabel("white")}>
-                          {" "}
-                          Email address
-                        </FormLabel>
-                        <Input
-                          {...InputFormUsername}
+
+                        <FormLabel htmlFor="email" {...SignupTextLabel("white")}> Email address </FormLabel>
+                        <Input id="email" {...InputFormUsername}
                           onChange={(e) => setEmail(e.target.value)}
                         ></Input>
                       </FormControl>
+
                     </VStack>
                     <FormControl>
-                      <FormLabel {...LoginTextLabel("white")}>
-                        {" "}
-                        Password
-                      </FormLabel>
-                      <Input
-                        {...InputFormPassword}
+                      <FormLabel htmlFor="password"  {...SignupTextLabel("white")}> Password </FormLabel>
+                      <Input id="password" {...InputFormPassword}
                         onChange={(e) => setPassword(e.target.value)}
                       ></Input>
-                      <FormLabel {...LoginTextLabel("white")}>
-                        {" "}
-                        Re-enter Password
-                      </FormLabel>
-                      <Input
-                        {...InputFormPassword}
+
+                      <FormLabel htmlFor="repassword"{...SignupTextLabel("white")}> Re-enter Password </FormLabel>
+                      <Input id="repassword" {...InputFormPassword}
                         onChange={(e) => setRePassword(e.target.value)}
                       ></Input>
                     </FormControl>
                   </Stack>
-                  <Button
-                    {...SignUpButton}
+
+                  <Button {...SignUpButton}
                     onClick={signUp}
-                    style={{ position: "absolute", right: 0 }}
-                  >
-                    {" "}
-                    SignUp{" "}
+                    style={{ position: "absolute", right: 0 }} > Signup
                   </Button>
                 </CardBody>
               </Card>
             </CardBody>
-            <ChakraLink {...LoginLinkProps} as={ReactRouterLink} to="/login">
-              Have already an account? Login
+            <ChakraLink {...LoginLinkProps} as={ReactRouterLink} to="/login"> Have already an account? Login
             </ChakraLink>
           </Card>
         </Flex>
@@ -121,7 +101,7 @@ export const SignUp = () => {
 
 const ContentMargin = {
   marginTop: ["0px", "50px"],
-  marginBottom: ["0px", "50px"],
+ 
 };
 
 const SignUpLogo = {
@@ -163,13 +143,15 @@ const CardOuter = {
   bg: "#db3e00", // Background
   variant: "outline",
   borderRadius: "10px",
-  justifyContent: "flex-start",
   borderWidth: "2px",
-  w: [150, 200, 300, 400, 500, 600],
+  w: ['80vw', '200', 200, 300, 400, 500, 600],
+  justifyContent: "flex-start",
   padding: "3vw",
 };
 
-const LoginTextLabel = (tColor: string) => {
+
+
+const SignupTextLabel = (tColor: string) => {
   return {
     fontSize: ["xs", "sm", "md"],
     textColor: tColor != "" ? tColor : "black",
@@ -182,6 +164,7 @@ const InputFormUsername = {
   borderColor: "#2f2724",
   borderRadius: "10px",
   height: "30px",
+  autoComplete: "off",
 };
 
 const InputFormPassword = {
@@ -190,6 +173,7 @@ const InputFormPassword = {
   borderColor: "#2f2724",
   borderRadius: "10px",
   height: "30px",
+  autoComplete: 'off',
 };
 
 const RegisterButton = () => {
