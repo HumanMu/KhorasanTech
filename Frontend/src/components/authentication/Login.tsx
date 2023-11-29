@@ -3,7 +3,9 @@ import { Input, Center, Flex, CardBody, Stack, HStack, Link as ChakraLink} from 
 import  { Link as ReactRouterLink} from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import  KhorasanLogo  from './../../assets/WebIcon.png'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import agent from '../../api/Agent';
+import { User, UserFormValues } from '../../models/User';
 
 export const Login = () => {
   const linkProps = CreateAccountLink();
@@ -11,14 +13,17 @@ export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [submitting, setSubmitting] = useState(false);
 
-  const signIn = async ()=> {
-    try {
-      // sign In Here
-    }
-    catch (e) {
-      console.log("Login failed!");
-    }
+  useEffect(() => {
+    
+  }, []);
+
+  function handleSignupSubmitting(user: UserFormValues) {
+    setSubmitting(true);
+    agent.Account.login(user).then(()=>{
+
+    });
   }
   
   return (
@@ -54,7 +59,7 @@ export const Login = () => {
                   </Stack>
                   <Button id='submit' {...LoginButtonProps}  
                     style={{ position: 'absolute', right: 0 }}
-                    onClick={signIn} > Login 
+                    onClick={handleSignupSubmitting} > Login 
                   </Button>
 
                 </CardBody>

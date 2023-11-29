@@ -1,8 +1,12 @@
 export interface User {
-  userId: number;
   userName: string;
-  firstName: string;
-  lastName: string;
-  email: string;
+  token: string;
   imageUrl: string;
+}
+
+export interface UserFormValues {
+  email: string,
+  password: string,
+  displayName? : string,
+  username?: string,
 }
