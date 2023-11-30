@@ -17,11 +17,8 @@ import {
   Link as ChakraLink,
 } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import KhorasanLogo from "./../../assets/WebIcon.png";
 import { useEffect, useState } from "react";
-import agent from "../../api/Agent";
-import { UserFormLogin } from "../../models/User";
 
 export const Login = () => {
   const linkProps = CreateAccountLink();
@@ -32,11 +29,8 @@ export const Login = () => {
 
   useEffect(() => {}, []);
 
-  function handleSignupSubmitting(user: UserFormLogin) {
+  function handleSignupSubmitting() {
     setSubmitting(true);
-    agent.Account.login(user).then(() => {
-      user;
-    });
   }
 
   return (
@@ -55,8 +49,7 @@ export const Login = () => {
                     <VStack>
                       <FormControl>
                         <FormLabel htmlFor="text" {...LoginTextLabel("white")}>
-                          {" "}
-                          Username
+                          <Text>Username</Text>
                         </FormLabel>
                         <Input
                           id="username"
@@ -71,12 +64,10 @@ export const Login = () => {
                           htmlFor="password"
                           {...LoginTextLabel("white")}
                         >
-                          {" "}
-                          Password
+                          <Text>Password</Text>
                         </FormLabel>
                         <ChakraLink {...LoginTextLabel("#001a2e")}>
-                          {" "}
-                          Forgot password?
+                          <Text>Forgot password?</Text>
                         </ChakraLink>
                       </HStack>
                       <Input
@@ -92,8 +83,7 @@ export const Login = () => {
                     style={{ position: "absolute", right: 0 }}
                     onClick={handleSignupSubmitting}
                   >
-                    {" "}
-                    Login
+                    <Text>Login</Text>
                   </Button>
                 </CardBody>
               </Card>
