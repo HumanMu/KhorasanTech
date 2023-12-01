@@ -67,14 +67,10 @@ namespace API.Controllers
             };
         }
 
-
         public async Task<bool> UserExest(string username)
         {
             return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
 
         }
-
     }
-
-
 }

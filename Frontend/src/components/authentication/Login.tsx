@@ -6,6 +6,7 @@ import {
   FormLabel,
   Card,
   Button,
+  InputGroup,
 } from "@chakra-ui/react";
 import {
   Input,
@@ -19,12 +20,11 @@ import {
 import { Link as ReactRouterLink } from "react-router-dom";
 import KhorasanLogo from "./../../assets/WebIcon.png";
 import { useEffect, useState } from "react";
+import { Form, Formik } from "formik";
 
 export const Login = () => {
   const linkProps = CreateAccountLink();
   const LoginButtonProps = LoginButton();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {}, []);
@@ -33,6 +33,73 @@ export const Login = () => {
     setSubmitting(true);
   }
 
+  return (
+    <Formik
+      initialValues={{ email: "", password: "" }}
+      onSubmit={(values) => {
+        // Handle form submission
+        console.log(values);
+      }}
+    >
+      {({ values, handleChange, handleSubmit }) => (
+        <Center marginTop={["0px", "50px"]}>
+        <Flex direction="column" align="center">
+          <VStack as="header" spacing="6" mt="5">
+            <Image src={KhorasanLogo} {...Logo} />
+          </VStack>
+          <Card {...ParentCard}>
+            <Text {...signInHeader}> Sign in to Khorasan Technology</Text>
+            <CardBody style={{ position: "relative" }}>
+              <Card {...CardOuter}>
+                <CardBody style={{ position: "relative" }}>
+                  <Stack>
+                    <Form onSubmit={handleSubmit}>
+                      <FormLabel>Email</FormLabel>
+                      <InputGroup>
+                        <Input borderColor={'black'}
+                          type="email"
+                          name="email"
+                          value={values.email}
+                          onChange={handleChange}
+                        />
+                      </InputGroup>
+
+                      <FormLabel>Password</FormLabel>
+                      <InputGroup>
+                        <Input
+                          borderColor={'black'}
+                          type="password"
+                          name="password"
+                          value={values.password}
+                          onChange={handleChange}
+                        />
+                      </InputGroup>
+                      <Button
+                        id="submit"
+                        {...LoginButtonProps}
+                        style={{ position: "absolute", right: 0 }}
+                        onClick={handleSignupSubmitting}
+                      >
+                        <Text>Login</Text>
+                      </Button>
+                    </Form>
+
+                    </Stack>                        
+                  </CardBody>
+                </Card>
+              </CardBody>
+              <ChakraLink {...linkProps} as={ReactRouterLink} to="/register">
+                Create account
+              </ChakraLink>
+            </Card>
+          </Flex>
+        </Center>
+      )}
+    </Formik>
+  );
+}
+
+  /*
   return (
     <>
       <Center marginTop={["0px", "50px"]}>
@@ -96,7 +163,7 @@ export const Login = () => {
       </Center>
     </>
   );
-};
+};*/
 
 // Firestore fra minut: 29:45
 const Logo = {
@@ -112,7 +179,7 @@ const signInHeader = {
   transform: "translateX(-50%)",
   fontWeight: "bold",
   fontSize: ["10px", "12px", "15px", "20px"],
-  textColor: "white",
+  textColor: "black",
 };
 
 const CreateAccountLink = () => {
@@ -138,7 +205,8 @@ const CardOuter = {
   bg: "#db3e00", // Background
   variant: "outline",
   borderRadius: "10px",
-  borderWidth: "2px",
+  borderColor: 'black',
+  borderWidth: "1px",
   w: ["80vw", 200, 300, 400, 500, 600],
   justifyContent: "flex-start",
   padding: "3vw",

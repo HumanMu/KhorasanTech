@@ -10,7 +10,7 @@ const LoginForm = () => {
         console.log(values);
       }}
     >
-      {({ values, handleChange, handleSubmit, errors }) => (
+      {({ values, handleChange, handleSubmit }) => (
         <form onSubmit={handleSubmit}>
           <FormLabel>Email</FormLabel>
           <InputGroup>
@@ -19,7 +19,6 @@ const LoginForm = () => {
               name="email"
               value={values.email}
               onChange={handleChange}
-              error={errors.email}
             />
           </InputGroup>
 
@@ -30,7 +29,6 @@ const LoginForm = () => {
               name="password"
               value={values.password}
               onChange={handleChange}
-              error={errors.password}
             />
           </InputGroup>
 

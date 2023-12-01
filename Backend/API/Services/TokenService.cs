@@ -21,7 +21,7 @@ namespace API.Services
 
             var claims = new List<Claim> // A user can have many claims, therefore a List
             {
-                new Claim(JwtRegisteredClaimNames.NameId, user.UserName)
+                new(JwtRegisteredClaimNames.NameId, user.UserName)
             };
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
