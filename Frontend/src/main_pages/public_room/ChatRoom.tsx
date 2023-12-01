@@ -9,8 +9,8 @@ import {
   SendGroupMessages,
 } from "../../api/services/PublicChatService";
 import { User } from "../../models/User";
-import MessageCard from "../../components/MessageCard";
-import UserCard from "../../components/UserCard";
+import MessageCard from "../../components/cards/MessageCard";
+import UserCard from "../../components/cards/UserCard";
 
 const ChatRoom = () => {
   const messageList = GetGroupMessages();

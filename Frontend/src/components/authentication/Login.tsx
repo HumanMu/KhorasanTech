@@ -1,105 +1,69 @@
-import {
-  Text,
-  VStack,
-  Image,
-  FormControl,
-  FormLabel,
-  Card,
-  Button,
-  InputGroup,
-} from "@chakra-ui/react";
-import {
-  Input,
-  Center,
-  Flex,
-  CardBody,
-  Stack,
-  HStack,
-  Link as ChakraLink,
-} from "@chakra-ui/react";
-import { Link as ReactRouterLink } from "react-router-dom";
-import KhorasanLogo from "./../../assets/WebIcon.png";
-import { useEffect, useState } from "react";
-import { Form, Formik } from "formik";
-
-export const Login = () => {
-  const linkProps = CreateAccountLink();
-  const LoginButtonProps = LoginButton();
-  const [submitting, setSubmitting] = useState(false);
-
-  useEffect(() => {}, []);
-
-  function handleSignupSubmitting() {
-    setSubmitting(true);
-  }
-
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { observer } from "mobx-react-lite";
+import { Button, FormLabel, Heading, Input } from "@chakra-ui/react";
+import { useStore } from "../../stores/store";
+// https://github.com/TryCatchLearn/Reactivities/blob/main/client-app/src/features/users/LoginForm.tsx
+export default observer(function Login() {
+  const { userStore } = useStore();
   return (
     <Formik
-      initialValues={{ email: "", password: "" }}
-      onSubmit={(values) => {
-        // Handle form submission
-        console.log(values);
-      }}
+      initialValues={{ username: "", password: "", error: null }}
+      onSubmit={(values, { setErrors }) =>
+        userStore
+          .login(values)
+          .catch((error) => setErrors({ error: "Invalid email or password" }))
+      }
     >
-      {({ values, handleChange, handleSubmit }) => (
-        <Center marginTop={["0px", "50px"]}>
-        <Flex direction="column" align="center">
-          <VStack as="header" spacing="6" mt="5">
-            <Image src={KhorasanLogo} {...Logo} />
-          </VStack>
-          <Card {...ParentCard}>
-            <Text {...signInHeader}> Sign in to Khorasan Technology</Text>
-            <CardBody style={{ position: "relative" }}>
-              <Card {...CardOuter}>
-                <CardBody style={{ position: "relative" }}>
-                  <Stack>
-                    <Form onSubmit={handleSubmit}>
-                      <FormLabel>Email</FormLabel>
-                      <InputGroup>
-                        <Input borderColor={'black'}
-                          type="email"
-                          name="email"
-                          value={values.email}
-                          onChange={handleChange}
-                        />
-                      </InputGroup>
-
-                      <FormLabel>Password</FormLabel>
-                      <InputGroup>
-                        <Input
-                          borderColor={'black'}
-                          type="password"
-                          name="password"
-                          value={values.password}
-                          onChange={handleChange}
-                        />
-                      </InputGroup>
-                      <Button
-                        id="submit"
-                        {...LoginButtonProps}
-                        style={{ position: "absolute", right: 0 }}
-                        onClick={handleSignupSubmitting}
-                      >
-                        <Text>Login</Text>
-                      </Button>
-                    </Form>
-
-                    </Stack>                        
-                  </CardBody>
-                </Card>
-              </CardBody>
-              <ChakraLink {...linkProps} as={ReactRouterLink} to="/register">
-                Create account
-              </ChakraLink>
-            </Card>
-          </Flex>
-        </Center>
+      {({ handleSubmit, isSubmitting, errors }) => (
+        <Form className="ui form" onSubmit={handleSubmit} autoComplete="off">
+          <Heading
+            as="h2"
+            content="Login to Reactivities"
+            color="teal"
+            textAlign="center"
+          />
+          <MyTextInput name="username" />
+          <MyTextInput name="password" type="password" />
+          <ErrorMessage
+            name="error"
+            render={() => (
+              <FormLabel
+                style={{ marginBottom: 10 }}
+                color="red"
+                content={errors.error}
+              />
+            )}
+          />
+          <Button isLoading={isSubmitting} content="Login" type="submit" />
+        </Form>
       )}
     </Formik>
   );
+});
+
+import { useField } from "formik";
+interface Props {
+  placeholder?: string;
+  name: string;
+  label?: string;
+  type?: string;
+}
+export function MyTextInput(props: Props) {
+  const [field, meta] = useField(props.name);
+  return (
+    <Form>
+      <Field error={meta.touched && !!meta.error}>
+        <label>{props.label}</label>
+        <input {...field} {...props} />
+        {meta.touched && meta.error ? (
+          <FormLabel color="red">{meta.error}</FormLabel>
+        ) : null}
+      </Field>
+    </Form>
+  );
 }
 
-  /*
+/*
   return (
     <>
       <Center marginTop={["0px", "50px"]}>
@@ -205,9 +169,9 @@ const CardOuter = {
   bg: "#db3e00", // Background
   variant: "outline",
   borderRadius: "10px",
-  borderColor: 'black',
+  borderColor: "black",
   borderWidth: "1px",
-  w: ["80vw", 200, 300, 400, 500, 600],
+  w: ["80vw", 300, 400, 500, 600],
   justifyContent: "flex-start",
   padding: "3vw",
 };

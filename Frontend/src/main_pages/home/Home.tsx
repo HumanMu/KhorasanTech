@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/layout";
 import { VStack } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import ActivityCard from "../../components/ActivityCard";
+import ActivityCard from "../../components/cards/ActivityCard";
 import { Activity } from "../../models/Activity";
 import agent from "../../api/Agent";
 

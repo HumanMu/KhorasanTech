@@ -1,5 +1,5 @@
 import { makeObservable } from "mobx";
-import { User } from "../models/User";
+import { User, UserFormLogin } from "../models/User";
 import agent from "../api/Agent";
 
 export default class UserStore {
@@ -9,7 +9,7 @@ export default class UserStore {
     makeObservable(this);
   }
 
-  login = async (cred: User) => {
+  login = async (cred: UserFormLogin) => {
     const user = await agent.Account.login(cred);
     console.log(user);
   };

@@ -1,5 +1,5 @@
 import { Box, HStack, Text } from "@chakra-ui/layout";
-import { User } from "../models/User";
+import { User } from "../../models/User";
 
 const UserCard = ({ users, bg }: { users: User; bg: number }) => {
   let bakcground = bg % 2 === 0 ? "#eb9694" : "#e06f84";
