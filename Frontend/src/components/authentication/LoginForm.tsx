@@ -1,23 +1,24 @@
-import { Formik } from "formik";
+import {  Formik } from "formik";
 import { Input, InputGroup, FormLabel, Button } from "@chakra-ui/react";
+import { useStore } from "../../stores/Store";
 
 const LoginForm = () => {
+  const { userStore } = useStore();
   return (
     <Formik
-      initialValues={{ email: "", password: "" }}
-      onSubmit={(values) => {
-        // Handle form submission
-        console.log(values);
-      }}
+      initialValues={{ username: "", password: "", error: null}}
+      onSubmit={(values, { setErrors }) =>
+        userStore.login(values).catch(() => setErrors({ error: 'Invalid email or password' })
+      )}
     >
       {({ values, handleChange, handleSubmit }) => (
         <form onSubmit={handleSubmit}>
-          <FormLabel>Email</FormLabel>
+          <FormLabel>Username</FormLabel>
           <InputGroup>
             <Input
-              type="email"
-              name="email"
-              value={values.email}
+              type="username"
+              name="username"
+              value={values.username}
               onChange={handleChange}
             />
           </InputGroup>
@@ -31,7 +32,6 @@ const LoginForm = () => {
               onChange={handleChange}
             />
           </InputGroup>
-
           <Button type="submit">Login</Button>
         </form>
       )}

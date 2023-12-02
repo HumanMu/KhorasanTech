@@ -18,17 +18,16 @@ export class LoadingService {
     this.setLoading(false);
   }
 
-  wrapRequest<T>(request: () => Promise<T>) {
+  async wrapRequest<T>(request: () => Promise<T>) {
     this.startLoading();
 
-    return request()
-      .then((response) => {
-        this.stopLoading();
-        return response;
-      })
-      .catch((error) => {
-        this.stopLoading();
-        throw error;
-      });
+    try {
+      const response = await request();
+      this.stopLoading();
+      return response;
+    } catch (error) {
+      this.stopLoading();
+      throw error;
+    }
   }
 }

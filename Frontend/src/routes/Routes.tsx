@@ -16,7 +16,7 @@ export const routes: RouteObject[] = [
     path: "/",
     element: <App />,
     children: [
-      { path: "", element: <Login /> },
+      { path: "", element: <Home /> },
       { path: "login", element: <Login /> },
       { path: "register", element: <SignUp /> },
       { path: "mission", element: <Mission /> },
@@ -25,6 +25,7 @@ export const routes: RouteObject[] = [
       { path: "contactus", element: <ContactUs /> },
       { path: "chatroom", element: <ChatRoom /> },
       { path: "home", element: <Home /> },
+
     ],
   },
 ];

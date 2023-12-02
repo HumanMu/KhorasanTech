@@ -1,70 +1,85 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { ErrorMessage, Formik } from "formik";
+import { useStore } from "../../stores/Store";
+import { Button, Card, Center, Flex, FormLabel, Input, InputGroup, VStack, Text, CardBody, Link as ChakraLink, Image, } from "@chakra-ui/react";
 import { observer } from "mobx-react-lite";
-import { Button, FormLabel, Heading, Input } from "@chakra-ui/react";
-import { useStore } from "../../stores/store";
-// https://github.com/TryCatchLearn/Reactivities/blob/main/client-app/src/features/users/LoginForm.tsx
-export default observer(function Login() {
+import { Form, Link as ReactRouterLink } from "react-router-dom";
+import KhorasanLogo from "./../../assets/WebIcon.png";
+
+
+export default observer(function LoginForm() {
   const { userStore } = useStore();
-  return (
-    <Formik
-      initialValues={{ username: "", password: "", error: null }}
+
+  return (    <Formik
+      initialValues={{ username: "", password: "", error: null}}
       onSubmit={(values, { setErrors }) =>
-        userStore
-          .login(values)
-          .catch((error) => setErrors({ error: "Invalid email or password" }))
-      }
+        userStore.login(values).catch((error) => setErrors({ error: 'Invalid email or password' })
+      )}
     >
-      {({ handleSubmit, isSubmitting, errors }) => (
-        <Form className="ui form" onSubmit={handleSubmit} autoComplete="off">
-          <Heading
-            as="h2"
-            content="Login to Reactivities"
-            color="teal"
-            textAlign="center"
-          />
-          <MyTextInput name="username" />
-          <MyTextInput name="password" type="password" />
-          <ErrorMessage
-            name="error"
-            render={() => (
-              <FormLabel
-                style={{ marginBottom: 10 }}
-                color="red"
-                content={errors.error}
-              />
-            )}
-          />
-          <Button isLoading={isSubmitting} content="Login" type="submit" />
+      {({values, handleChange, handleSubmit, errors }) => (
+        <Form onSubmit={handleSubmit}>
+          <Center marginTop={["0px", "50px"]}>
+            <Flex direction="column" align="center">
+              <VStack as="header" spacing="6" mt="5">
+                <Image src={KhorasanLogo} {...Logo} />
+              </VStack>
+              <Card {...ParentCard}>
+                <Text {...signInHeader}> Sign in to Khorasan Technology</Text>
+                <CardBody style={{ position: "relative" }}>
+                  <Card {...CardOuter}>
+                    <CardBody style={{ position: "relative" }}>
+                    <FormLabel>Username</FormLabel>
+                      <InputGroup>
+                        <Input
+                          type="username"
+                          name="username"
+                          value={values.username}
+                          onChange={handleChange}
+                          borderColor={'black'}
+                        />
+                      </InputGroup>
+                      <FormLabel>Password</FormLabel>
+                      <InputGroup>
+                        <Input
+                          type="password"
+                          name="password"
+                          value={values.password}
+                          onChange={handleChange}
+                          borderColor={'black'}
+                        />
+                      </InputGroup>
+                      <ErrorMessage name={"error"}
+                        render={()=> 
+                          <FormLabel 
+                            marginBottom={"5px"} 
+                            textColor={'yellow'}
+                            borderColor={"yellow"}> 
+                            {errors.error}
+                          </FormLabel>
+                        }
+                      />
+                      <Button {...LoginButton} type="submit">Login</Button>
+                    </CardBody>
+                    </Card>
+                  </CardBody>
+                  <ChakraLink {...CreateAccountLink} as={ReactRouterLink} to="/register">
+                    Create account
+                  </ChakraLink>
+                </Card>
+              </Flex>
+            </Center>
         </Form>
       )}
     </Formik>
   );
 });
 
-import { useField } from "formik";
-interface Props {
-  placeholder?: string;
-  name: string;
-  label?: string;
-  type?: string;
-}
-export function MyTextInput(props: Props) {
-  const [field, meta] = useField(props.name);
-  return (
-    <Form>
-      <Field error={meta.touched && !!meta.error}>
-        <label>{props.label}</label>
-        <input {...field} {...props} />
-        {meta.touched && meta.error ? (
-          <FormLabel color="red">{meta.error}</FormLabel>
-        ) : null}
-      </Field>
-    </Form>
-  );
-}
+
+
 
 /*
-  return (
+
+
+return (
     <>
       <Center marginTop={["0px", "50px"]}>
         <Flex direction="column" align="center">
@@ -130,10 +145,17 @@ export function MyTextInput(props: Props) {
 };*/
 
 // Firestore fra minut: 29:45
-const Logo = {
-  alt: "Login Logo",
-  maxW: "100px",
-  maxH: "100px",
+
+const LoginButton =  {
+  position: "absolute" as const,
+  marginTop: "5px",
+  marginRight: "20px",
+  bg: "green",
+  size: "sm",
+  borderRadius: "10px",
+  padding: "15px",
+  _hover: { bg: "#81b182" },
+  href: "#",
 };
 
 const signInHeader = {
@@ -146,15 +168,13 @@ const signInHeader = {
   textColor: "black",
 };
 
-const CreateAccountLink = () => {
-  return {
+const CreateAccountLink = {
     position: "absolute" as const,
     bottom: "5px" as const,
     right: "6vw" as const,
     textColor: "black" as const,
     as: "ins" as const,
     fontSize: ["12px", "15", "20px"],
-  };
 };
 
 const ParentCard = {
@@ -176,7 +196,7 @@ const CardOuter = {
   padding: "3vw",
 };
 
-const LoginTextLabel = (tColor: string) => {
+/*const LoginTextLabel = (tColor: string) => {
   return {
     fontSize: ["xs", "sm", "md"],
     textColor: tColor != "" ? tColor : "black",
@@ -199,18 +219,11 @@ const InputFormPassword = {
   borderRadius: "10px",
   height: "30px",
   autoComplete: "off",
+};*/
+const Logo = {
+  alt: "Login Logo",
+  maxW: "100px",
+  maxH: "100px",
 };
 
-const LoginButton = () => {
-  return {
-    position: "absolute" as const,
-    marginTop: "5px" as const,
-    marginRight: "20px",
-    bg: "green" as const,
-    size: "sm" as const,
-    borderRadius: "10px" as const,
-    padding: "15px" as const,
-    _hover: { bg: "#81b182" } as const,
-    href: "#",
-  };
-};
+

@@ -17,13 +17,11 @@ import {
 } from "@chakra-ui/react";
 import KhorasanLogo from "./../../assets/WebIcon.png";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export const SignUp = () => {
   const LoginLinkProps = LoginLink();
   const SignUpButton = RegisterButton();
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [lastname, setLastName] = useState("");
@@ -34,7 +32,7 @@ export const SignUp = () => {
     try {
       // Sign up here
     } catch (e) {
-      console.log("Login failed!");
+      console.log(email, name, lastname, password, rePassword);
     }
   };
 

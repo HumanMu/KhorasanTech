@@ -4,9 +4,12 @@ import { useState, useEffect } from "react";
 import ActivityCard from "../../components/cards/ActivityCard";
 import { Activity } from "../../models/Activity";
 import agent from "../../api/Agent";
+import { useStore } from "../../stores/Store";
+import { router } from "../../routes/Routes";
 
 const Home = () => {
   const [activities, setActivities] = useState<Activity[]>([]);
+  const { userStore } = useStore();
 
   useEffect(() => {
     agent.Activities.list().then((response) => {
@@ -21,18 +24,23 @@ const Home = () => {
 
   return (
     <>
-      <VStack>
-        <Box {...ActivityLayout}>
-          <VStack justifyItems={"left"}>
-            {activities.map((activity: Activity) => (
-              <ActivityCard
-                key={activity.id}
-                activity={activity}
-              ></ActivityCard>
-            ))}
-          </VStack>
-        </Box>
-      </VStack>
+      {userStore.isLoggedIn ? (
+        <VStack>
+          <Box {...ActivityLayout}>
+            <VStack justifyItems={"left"}>
+              {activities.map((activity: Activity) => (
+                <ActivityCard
+                  key={activity.id}
+                  activity={activity}
+                ></ActivityCard>
+              ))}
+            </VStack>
+          </Box>
+        </VStack>
+        ) : (
+          router.navigate('/login')
+        )
+      }
     </>
   );
 };

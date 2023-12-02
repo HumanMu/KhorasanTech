@@ -42,13 +42,11 @@ export default function WithSubnavigation() {
             <DesktopNav />
           </Flex>
         </Flex>
-
         <Stack {...AccessButtons}>
           <Button {...SignInButton}> Sign In </Button>
           <Button {...SignUpButton}> Sign Up </Button>
         </Stack>
       </Flex>
-
       <Collapse in={isOpen} animateOpacity>
         <MobileNav />
       </Collapse>
@@ -86,6 +84,15 @@ const SignUpButton = {
   _hover: { bg: "#81b182" } as const,
   href: "/register",
 };
+/*const Signout = {
+  as: "a" as const,
+  display: { base: "none", md: "inline-flex" },
+  fontSize: "sm",
+  fontWeight: "600",
+  color: "white",
+  bg: "#db3e00",
+  _hover: { bg: "#81b182" } as const,
+};*/
 
 const FlexParent = {
   minH: "60px",
