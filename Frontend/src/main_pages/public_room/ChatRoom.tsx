@@ -1,7 +1,6 @@
 import { Center, VStack, Text } from "@chakra-ui/layout";
 import { Box, Flex, HStack, IconButton, Input } from "@chakra-ui/react";
 import { ArrowRightIcon } from "@chakra-ui/icons";
-import "../../components/stylecss.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {
@@ -68,7 +67,7 @@ const ChatRoom = () => {
             <VStack spacing={0}>
               {users.map((user, index) => (
                 <UserCard
-                  key={user.userId}
+                  key={user.userName}
                   users={users[index]}
                   bg={index}
                 ></UserCard>

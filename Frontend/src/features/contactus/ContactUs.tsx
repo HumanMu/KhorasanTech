@@ -1,5 +1,5 @@
 import { Center, VStack, Text, Stack } from "@chakra-ui/react";
-import ImageSlider from "../components/slider/ImageSlider";
+import ImageSlider from "../../components/slider/ImageSlider";
 
 
 

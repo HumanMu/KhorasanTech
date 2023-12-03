@@ -13,7 +13,8 @@ import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
 import { DesktopNav } from "./computer/Computer";
 import { MobileNav } from "./mobile/Mobile";
-import LoginLogo from "./../assets/WebIcon2.png";
+import LoginLogo from "./../../assets/WebIcon2.png";
+
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();

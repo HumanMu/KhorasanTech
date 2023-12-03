@@ -1,15 +1,13 @@
 import { RouteObject, createBrowserRouter as Router } from "react-router-dom";
-
 import { SignUp } from "../components/authentication/Signup";
-import App from "../App";
-import ContactUs from "../contactus/ContactUs";
-import AboutUs from "../main_pages/aboutus/components/AboutUs";
+import ContactUs from "../features/contactus/ContactUs";
 import ChatRoom from "../main_pages/public_room/ChatRoom";
-
-import Home from "../main_pages/home/Home";
 import Login from "../components/authentication/Login";
-import Mission from "../main_pages/aboutus/components/Mission";
-import Vission from "../main_pages/aboutus/components/Vission";
+import Mission from "../features/aboutus/components/Mission";
+import Vission from "../features/aboutus/components/Vission";
+import AboutUs from "../features/aboutus/components/AboutUs";
+import Home from "../main_pages/activities/Home";
+import App from "../app/App";
 
 export const routes: RouteObject[] = [
   {

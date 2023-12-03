@@ -1,11 +1,10 @@
 import { Box } from "@chakra-ui/layout";
 import { VStack } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import ActivityCard from "../../components/cards/ActivityCard";
 import { Activity } from "../../models/Activity";
 import agent from "../../api/Agent";
 import { useStore } from "../../stores/Store";
-import { router } from "../../routes/Routes";
+import ActivityDashboard from "./dashboards/ActivityDashboard";
 
 const Home = () => {
   const [activities, setActivities] = useState<Activity[]>([]);
@@ -24,23 +23,12 @@ const Home = () => {
 
   return (
     <>
-      {userStore.isLoggedIn ? (
-        <VStack>
-          <Box {...ActivityLayout}>
-            <VStack justifyItems={"left"}>
-              {activities.map((activity: Activity) => (
-                <ActivityCard
-                  key={activity.id}
-                  activity={activity}
-                ></ActivityCard>
-              ))}
-            </VStack>
-          </Box>
-        </VStack>
-        ) : (
-          router.navigate('/login')
-        )
-      }
+      <VStack>
+        <Box {...ActivityLayout}>
+          <ActivityDashboard activities={activities}/>
+        </Box>
+      </VStack>
+        
     </>
   );
 };

@@ -1,14 +1,13 @@
 import { Box, Text } from '@chakra-ui/layout';
+import React from 'react';
 
 
 
 const MessageCard = ({ name, message }: { name: string; message: string }) => {
   return (
-    <>
-      <Box {...MsgCard}>
-        <Text> {name}: {message} </Text>
-      </Box>
-    </>
+    <Box {...MsgCard}>
+      <Text> {name}: {message} </Text>
+    </Box>
   );
 };
 

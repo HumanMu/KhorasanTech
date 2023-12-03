@@ -1,0 +1,18 @@
+import { VStack } from "@chakra-ui/react";
+import ActivityCard from "../../../components/cards/ActivityCard";
+import { Activity } from "../../../models/Activity";
+import React from "react";
+
+export default function ActivityDashboard({activities} : {activities: Activity[]}) {
+  return(
+    <VStack justifyItems={"left"}>
+      {activities.map((activity: Activity) => (
+        <ActivityCard
+          key={activity.id}
+          activity={activity}
+        ></ActivityCard>
+      ))}
+    </VStack>
+  )
+
+}
