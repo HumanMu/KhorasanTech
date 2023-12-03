@@ -19,7 +19,8 @@ namespace API.Data
                     Description = "My Activity from 1 month ago",
                     Category = "Summer",
                     City = "Aarhus",
-                    Venue = "Aarhus C"
+                    Venue = "Aarhus C",
+                    ImageUrl = "",
                 },
                 new() {
                     Title = "Past Activity 2",
@@ -27,7 +28,8 @@ namespace API.Data
                     Description = "My Activity from 2 month ago",
                     Category = "Summer",
                     City = "Copenhagen",
-                    Venue = "Banegaard"
+                    Venue = "Banegaard",
+                    ImageUrl = "",
                 },
                 new() {
                     Title = "Past Activity 3",
@@ -35,7 +37,8 @@ namespace API.Data
                     Description = "My Activity from 3 month ago",
                     Category = "Summer",
                     City = "Kabul",
-                    Venue = "Zafran Hotel"
+                    Venue = "Zafran Hotel",
+                    ImageUrl = "",
                 },
                 new() {
                     Title = "Past Activity 4",
@@ -43,7 +46,8 @@ namespace API.Data
                     Description = "My sunny day from 4 month ago",
                     Category = "Vinter",
                     City = "Shirdagh",
-                    Venue = "Bazar Shirdagh"
+                    Venue = "Bazar Shirdagh",
+                    ImageUrl = "",
                 }
             };
             await context.Activities.AddRangeAsync(activities);

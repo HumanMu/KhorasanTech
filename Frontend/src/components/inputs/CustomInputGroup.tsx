@@ -10,16 +10,6 @@ interface Props {
 }
 
 export default function CustomInputGroup(props: Props) {
-  function validateInput(value: string) {
-    let error;
-    if (!value) {
-      error = "Name is required";
-    } else if (value.toLowerCase() !== "naruto") {
-      error = "Jeez! You're not a fan 😱";
-    }
-    return error;
-  }
-
   return (
     <Form>
       <Field>

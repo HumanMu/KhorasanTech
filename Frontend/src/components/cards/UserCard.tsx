@@ -1,13 +1,18 @@
 import { Box, HStack, Text } from "@chakra-ui/layout";
 import { User } from "../../models/User";
 
-const UserCard = ({ users, bg }: { users: User; bg: number }) => {
-  let bakcground = bg % 2 === 0 ? "#eb9694" : "#e06f84";
+interface Props {
+  user: User,
+  bg?: string,
+}
+
+const UserCard = ({ user } : Props) => {
+  //let bakcground = user % 2 === 0 ? "#eb9694" : "#e06f84";
   return (
-    <Box {...Card({ b: bakcground })}>
+    <Box {...Card}>
       <HStack>
         <Text>
-          {users.imageUrl} {users.firstName} {users.lastName}
+          {user.imageUrl}
         </Text>
       </HStack>
     </Box>

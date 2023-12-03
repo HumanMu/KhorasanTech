@@ -28,7 +28,7 @@ const Home = () => {
           <ActivityDashboard activities={activities}/>
         </Box>
       </VStack>
-        
+
     </>
   );
 };
@@ -40,5 +40,6 @@ const ActivityLayout = {
   height: "100%",
   paddingLeft: "5px",
   paddingTop: "50px",
+  padding: ["50px", "15px", "", "15px" ],
   bg: "blackAlpha.100",
 };

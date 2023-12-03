@@ -6,5 +6,5 @@ export interface Activity {
   category: string;
   city: string;
   venue: string;  // navnet på stedet hvor aktivititen afholdes
+  imageUrl: string;
 }
- 

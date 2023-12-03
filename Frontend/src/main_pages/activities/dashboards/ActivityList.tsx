@@ -6,7 +6,7 @@ interface Props {
   activities: Activity[],
 }
 
-export default function ActivityDashboard({activities} : {activities: Activity[]}) {
+export default function ActivityDashboard({activities} : Props) {
   return(
     <VStack justifyItems={"left"}>
       {activities.map((activity: Activity) => (
