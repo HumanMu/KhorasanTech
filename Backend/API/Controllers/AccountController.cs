@@ -23,7 +23,7 @@ namespace API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<UserDto>> Register(SignupDto signupDto)
+        public async Task<ActionResult<string>> Register(SignupDto signupDto)
         {
             if (await UserExest(signupDto.UserName)) return BadRequest("Username is already taken");
 
@@ -31,6 +31,9 @@ namespace API.Controllers
             var user = new User
             {
                 UserName = signupDto.UserName.ToLower(),
+                FirstName = signupDto.Firstname,
+                LastName = signupDto.Lastname,
+                Email = signupDto.Email,
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(signupDto.Password)),
                 PasswordSalt = hmac.Key
             };
@@ -38,11 +41,13 @@ namespace API.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return new UserDto
+            return "Success";
+
+            /*return new UserDto
             {
                 UserName = user.UserName,
                 Token = _tokenService.CreateToken(user),
-            };
+            };*/
         }
 
         [HttpPost("login")]

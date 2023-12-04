@@ -9,10 +9,10 @@ import KhorasanLogo from "./../../assets/WebIcon.png";
 export default observer(function LoginForm() {
   const { userStore } = useStore();
 
-  return (    <Formik
+  return ( <Formik
       initialValues={{ username: "", password: "", error: null}}
       onSubmit={(values, { setErrors }) =>
-        userStore.login(values).catch((error) => setErrors({ error: 'Invalid email or password' })
+        userStore.login(values).catch(() => setErrors({ error: 'Invalid email or password' })
       )}
     >
       {({values, handleChange, handleSubmit, errors }) => (
@@ -191,7 +191,8 @@ const CardOuter = {
   borderRadius: "10px",
   borderColor: "black",
   borderWidth: "1px",
-  w: ["80vw", 300, 400, 500, 600],
+  w: ["80vw", 400, 500, 600],
+  minWidth: 400,
   justifyContent: "flex-start",
   padding: "3vw",
 };

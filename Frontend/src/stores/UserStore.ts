@@ -1,5 +1,5 @@
 import { makeObservable, runInAction } from "mobx";
-import { User, UserFormLogin } from "../models/User";
+import { User, UserFormLogin, UserFormRegister } from "../models/User";
 import agent from "../api/Agent";
 import { store } from "./Store";
 import { router } from "../routes/Routes";
@@ -25,6 +25,18 @@ export default class UserStore {
       throw e;
     }
   };
+
+  register = async (cred: UserFormRegister) => {
+    try {
+      const user = await agent.Account.register(cred);
+      store.commonStore.setToken(user.token);
+      runInAction(()=> this.user = user);
+      router.navigate('/Home');
+    } catch (e) {
+      throw e;
+    }
+  };
+
 
   logout = () => {
     store.commonStore.setToken(null);

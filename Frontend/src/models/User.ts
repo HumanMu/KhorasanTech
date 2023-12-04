@@ -5,14 +5,19 @@ export interface User {
   imageUrl: string;
 }
 
-export interface UserFormRegister {
-  email: string;
-  password: string;
-  displayName?: string;
-  username?: string;
-}
-
 export interface UserFormLogin {
   password: string;
   username: string;
 }
+
+export interface UserFormRegister {
+  username: string; 
+  email: string; 
+  firstname: string;
+  lastname: string;
+  password: string;
+  repassword: string;
+}
+
+
+

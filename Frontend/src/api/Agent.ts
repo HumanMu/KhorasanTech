@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { User, UserFormLogin } from "../models/User";
+import { User, UserFormLogin, UserFormRegister } from "../models/User";
 import { Activity } from "../models/Activity";
 import { LoadingService } from "./services/LoadingService";
 
@@ -70,7 +70,7 @@ const requests = {
 const Account = {
   current: () => requests.get<User>("/account"),
   login: (user: UserFormLogin) => requests.post<User>("/account/login", user),
-  register: (user: User) => requests.post<User>("/account/register", user),
+  register: (user: UserFormRegister) => requests.post<User>("/account/register", user),
 };
 
 const Activities = {
