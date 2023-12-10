@@ -8,8 +8,8 @@ interface Props {
 
 export default function ActivityDashboard({ activities}: Props) {
   return (
-    <VStack justifyItems={"left"} marginTop={100} maxW={'100vw'}>
-      <ActivityList activities={activities}/>
+    <VStack justifyItems={"left"} marginTop={100} maxW={"100vw"}>
+      <ActivityList activities={activities} />
     </VStack>
   );
 }

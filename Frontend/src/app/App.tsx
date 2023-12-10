@@ -1,13 +1,12 @@
-import { Outlet, useLocation } from "react-router-dom";
-import { Container, VStack } from "@chakra-ui/react";
+import { Outlet } from "react-router-dom";
+import { Container } from "@chakra-ui/react";
 import LoadingComponents from "./layouts/LoadingComponents";
 import { ToastContainer } from "react-toastify";
 import { useStore } from "../stores/Store";
-import { Fragment, useEffect } from "react";
+import { useEffect } from "react";
 import Navbar from "./navbar/Navbar";
 
 function App() {
-  const location = useLocation();
   const {commonStore, userStore} = useStore();
 
   useEffect(() => {
@@ -19,7 +18,7 @@ function App() {
     }
   }, [commonStore, userStore]);
 
-  
+
   return (
     <>
       <ToastContainer position='bottom-right' hideProgressBar theme="colored"/>
