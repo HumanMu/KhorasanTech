@@ -1,5 +1,7 @@
 
 using API.Data;
+using API.Entities;
+using API.Entities.DTOs;
 using API.Interfaces;
 using API.Services;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +18,13 @@ namespace API.Extentions
             });
             services.AddCors();
             services.AddScoped<ITokenService, TokenService>();
+
+            // Configure AutoMapper using an expression
+            services.AddAutoMapper(config =>
+            {
+                config.CreateMap<Activity, ActivityDto>();
+                config.CreateMap<UserDto, LoginDto>();
+            });
 
             return services;
         }

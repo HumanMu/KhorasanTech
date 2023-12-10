@@ -3,7 +3,7 @@ import { Container, VStack } from "@chakra-ui/react";
 import LoadingComponents from "./layouts/LoadingComponents";
 import { ToastContainer } from "react-toastify";
 import { useStore } from "../stores/Store";
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import Navbar from "./navbar/Navbar";
 
 function App() {
@@ -22,14 +22,12 @@ function App() {
   
   return (
     <>
-    <ToastContainer position='bottom-right' hideProgressBar theme="colored"/>
-      <VStack spacing={0}>
-        <Navbar />
-        <LoadingComponents />
-        <Container>
-          <Outlet />
-        </Container>
-      </VStack>
+      <ToastContainer position='bottom-right' hideProgressBar theme="colored"/>
+      <Navbar />
+      <LoadingComponents />
+      <Container >
+        <Outlet />
+      </Container>
     </>
   );
 }

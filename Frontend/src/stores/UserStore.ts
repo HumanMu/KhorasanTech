@@ -28,10 +28,17 @@ export default class UserStore {
 
   register = async (cred: UserFormRegister) => {
     try {
-      const user = await agent.Account.register(cred);
-      store.commonStore.setToken(user.token);
-      runInAction(()=> this.user = user);
-      router.navigate('/Home');
+      const response = await agent.Account.register(cred);
+      if(response === "Success"){
+      //store.commonStore.setToken(user.token);
+      //runInAction(()=> this.user = user);
+        router.navigate('/login');
+      }
+      else{
+        console.log("Backend response: " + response);
+        return "Server error"
+      }
+
     } catch (e) {
       throw e;
     }

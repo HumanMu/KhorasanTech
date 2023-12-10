@@ -5,7 +5,7 @@ import { LoadingService } from "./services/LoadingService";
 
 const sleepTimer = (delay: number) => {
   // To define loading spinner
-  return new Promise((resolve) => {
+  return new Promise((resolve) => {  
     setTimeout(resolve, delay);
   });
 };
@@ -25,24 +25,26 @@ axios.interceptors.response.use(async (response) => {
 
 const responseBody = <T>(response: AxiosResponse<T>) => response.data; // Putting the response data into the "responseBody".
 
-// const requests = {
-//   get: <T>(url: string) => axios.get<T>(url).then(responseBody), // first <T> specify the type of request, and second "get<T>" here we send the type with the request
-//   post: <T>(url: string, body: {}) =>
-//     axios.post<T>(url, body).then(responseBody),
-//   put: <T>(url: string, body: {}) => axios.put<T>(url, body).then(responseBody),
-//   del: <T>(url: string) => axios.delete<T>(url).then(responseBody),
+ const requests = {
+   get: <T>(url: string) => axios.get<T>(url).then(responseBody),  //first <T> specify the type of request, and second "get<T>" here we send the type with the request
+   post: <T>(url: string, body: {}) =>
+     axios.post<T>(url, body).then(responseBody),
+   put: <T>(url: string, body: {}) => axios.put<T>(url, body).then(responseBody),
+   del: <T>(url: string) => axios.delete<T>(url).then(responseBody),
 
-// };
+};
 
 const loadingService = new LoadingService();
 
-const requests = {
-  get: <T>(url: string) => {
+/*const requests = {
+  get: async <T>(url: string) => {
     loadingService.startLoading();
-    return axios
-      .get<T>(url)
-      .then(responseBody)
-      .finally(() => loadingService.stopLoading());
+    try {
+      const response = await axios.get<T>(url);
+      return responseBody(response);
+    } finally {
+      loadingService.stopLoading(); 
+    }
   },
   post: <T>(url: string, body: {}) => {
     loadingService.startLoading();
@@ -65,16 +67,16 @@ const requests = {
       .then(responseBody)
       .finally(() => loadingService.stopLoading());
   },
-};
+};*/
 
-const Account = {
+const Account =  {
   current: () => requests.get<User>("/account"),
   login: (user: UserFormLogin) => requests.post<User>("/account/login", user),
-  register: (user: UserFormRegister) => requests.post<User>("/account/register", user),
+  register: (user: UserFormRegister) => requests.post<string>("/account/register", user),
 };
-
+ 
 const Activities = {
-  list: () => requests.get<Activity[]>("/activities"), // Taking the reponse from Api and putting into the "list"
+  list: () =>  requests.get<Activity[]>("/activities"), // Taking the reponse from Api and putting into the "list"
   details: (id: string) => requests.get<Activity>(`/activities/${id}`),
   create: (activity: Activity) => axios.post<void>("/activities", activity),
   update: (activity: Activity) =>

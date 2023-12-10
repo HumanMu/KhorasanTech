@@ -1,45 +1,46 @@
-import { Box } from "@chakra-ui/layout";
+
 import { VStack } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
+import { observer } from "mobx-react-lite";
+import ActivityDashboard from "./dashboards/ActivityList";
+import { useEffect, useState } from "react";
 import { Activity } from "../../models/Activity";
-import agent from "../../api/Agent";
-import { useStore } from "../../stores/Store";
-import ActivityDashboard from "./dashboards/ActivityDashboard";
+import axios from "axios";
 
-const Home = () => {
+function Home() {
   const [activities, setActivities] = useState<Activity[]>([]);
-  const { userStore } = useStore();
-
+  
+  /*const { activityStore } = useStore();
   useEffect(() => {
-    agent.Activities.list().then((response) => {
-      let activities: Activity[] = [];
-      response.forEach((activity) => {
-        activity.date = activity.date.split("T")[0];
-        activities.push(activity);
+    activityStore.loadActivities();
+  }, [activityStore]);
+*/
+  useEffect(() => {
+    axios.get<Activity[]>('http://localhost:5000/api/activities').then(response => {
+      const splitActivities = response.data.map(activity => {
+        const splitDate = activity.date.split('T')[0];
+        activity.date = splitDate;
+        return activity;
       });
-      setActivities(activities);
-    });
-  }, []);
+      setActivities(splitActivities);
+    })
+  })
 
   return (
     <>
-      <VStack>
-        <Box {...ActivityLayout}>
-          <ActivityDashboard activities={activities}/>
-        </Box>
+      <VStack maxW={'100vw'}>
+        <ActivityDashboard activities={activities}/>
       </VStack>
-
     </>
   );
-};
+}; 
 
-export default Home;
+export default observer(Home);
 
-const ActivityLayout = {
+/*const ActivityLayout = {
   width: "50vw",
   height: "100%",
   paddingLeft: "5px",
   paddingTop: "50px",
   padding: ["50px", "15px", "", "15px" ],
   bg: "blackAlpha.100",
-};
+};*/

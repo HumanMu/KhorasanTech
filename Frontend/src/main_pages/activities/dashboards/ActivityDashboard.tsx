@@ -1,6 +1,6 @@
 import { VStack } from "@chakra-ui/react";
-import ActivityCard from "../../../components/cards/ActivityCard";
 import { Activity } from "../../../models/Activity";
+import ActivityList from "./ActivityList";
 
 interface Props {
   activities: Activity[],
@@ -8,10 +8,8 @@ interface Props {
 
 export default function ActivityDashboard({ activities}: Props) {
   return (
-    <VStack justifyItems={"left"}>
-      {activities.map((activity: Activity) => (
-        <ActivityCard key={activity.id} activity={activity}></ActivityCard>
-      ))}
+    <VStack justifyItems={"left"} marginTop={100} maxW={'100vw'}>
+      <ActivityList activities={activities}/>
     </VStack>
   );
 }

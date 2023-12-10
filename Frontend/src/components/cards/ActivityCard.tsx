@@ -16,10 +16,11 @@ const ActivityCard = ({ activity }: { activity: Activity }) => {
       <Image
         width="100vh"
         maxH="50vh"
+        borderRadius={10}
         src={activity.imageUrl? activity.imageUrl : Shirdagh}
         onClick={()=> <FullActivityImage imageUrl={activity.imageUrl}  /> }
       />
-        <Text>{activity.description}</Text>
+      <Text>{activity.description}</Text>
     </Box>
   );
 };
@@ -28,7 +29,9 @@ export default ActivityCard;
 
 const CardView = {
   width: "100%",
-  marginBottom: "30px",
+  paddingBottom: "20px",
+  borderBottomWidth: 10,
+  borderBottomColor: 'white',
 };
 
 const cityAndDate = {

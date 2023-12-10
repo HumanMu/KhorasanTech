@@ -5,6 +5,7 @@ using API.Data;
 using API.Entities;
 using API.Entities.DTOs;
 using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,18 +15,20 @@ namespace API.Controllers
     public class AccountController : BaseApiController
     {
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
         private readonly ITokenService _tokenService;
 
-        public AccountController(DataContext context, ITokenService tokenService)
+        public AccountController(DataContext context, ITokenService tokenService, IMapper mapper)
         {
             _context = context;
             _tokenService = tokenService;
+            _mapper = mapper;
         }
 
         [HttpPost("register")]
         public async Task<ActionResult<string>> Register(SignupDto signupDto)
         {
-            if (await UserExest(signupDto.UserName)) return BadRequest("Username is already taken");
+            if (await UserExest(signupDto.UserName)) return BadRequest("Username is taken");
 
             using var hmac = new HMACSHA512();
             var user = new User
@@ -53,6 +56,8 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
+            if (await UserExest(loginDto.UserName)) return BadRequest("Username is taken");
+
             var user = await _context.Users.SingleOrDefaultAsync(
                 x => x.UserName == loginDto.UserName
             );
@@ -65,11 +70,13 @@ namespace API.Controllers
                 if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password");
             }
 
-            return new UserDto
+            var userDto = new UserDto
             {
                 UserName = user.UserName,
                 Token = _tokenService.CreateToken(user),
             };
+
+            return _mapper.Map<UserDto>(userDto);
         }
 
         public async Task<bool> UserExest(string username)
