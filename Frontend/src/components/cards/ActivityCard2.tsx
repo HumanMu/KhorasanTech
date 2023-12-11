@@ -1,4 +1,4 @@
-import { Avatar, Box, Card, CardBody, CardHeader, Flex, Heading, Text, Image, CardFooter, Button, Menu, MenuList, MenuItem, MenuButton, } from "@chakra-ui/react";
+import { Avatar, Box, Card, CardBody, CardHeader, Flex, Heading, Text, Image, CardFooter, Button, Menu, MenuList, MenuItem, MenuButton, useDisclosure, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, } from "@chakra-ui/react";
 import { BsThreeDots  } from 'react-icons/bs';
 import { BiShareAlt } from "react-icons/bi";
 import { FaCommentMedical } from "react-icons/fa6";
@@ -8,12 +8,20 @@ import { FaInstagramSquare } from "react-icons/fa";
 import { FaTiktok } from "react-icons/fa";
 import { Activity } from "../../models/Activity";
 import Shirdagh from '../../assets/shirdagh.jpg';
+import { DetailsActivity } from "../../main_pages/activities/details/Details";
 
 
 
 export default function ActivityCard2 ({ activity }: { activity: Activity }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+
+  const handleClick = () => {
+    onOpen();
+  };
 
   return (
+    <>
     <Card maxW="lg">
       <CardHeader>
         <Flex>
@@ -28,18 +36,10 @@ export default function ActivityCard2 ({ activity }: { activity: Activity }) {
             </Box>
           </Flex>
           <Menu>
-            <MenuButton
-              as={Button}
-              rightIcon={<BsThreeDots />}
-              iconSpacing={0}
-              fontSize="16px"
-              cursor="pointer"
-              backgroundColor="white"
-              justifyContent={"center"}
-              py={0}
+            <MenuButton {...MenuBtn} rightIcon={<BsThreeDots />}
             />
             <MenuList>
-              <MenuItem>Edit</MenuItem>
+              <MenuItem onClick={handleClick}>Edit</MenuItem>
               <MenuItem>Delete</MenuItem>
               <MenuItem>Report</MenuItem>
             </MenuList>
@@ -60,35 +60,30 @@ export default function ActivityCard2 ({ activity }: { activity: Activity }) {
       />
 
       <CardFooter {...Footer} flexWrap="wrap">
-        <Button {...Buttons} leftIcon={<FcLike />}>
-          {" "}
-          Like{" "}
-        </Button>
-        <Button {...Buttons} leftIcon={<FaCommentMedical />}>
-          {" "}
-          Comment{" "}
-        </Button>
+        <Button {...Buttons} leftIcon={<FcLike />}> Like </Button>
+        <Button {...Buttons} leftIcon={<FaCommentMedical />}> Comment </Button>
         <Menu>
-          <MenuButton
-            as={Button}
-            leftIcon={<BiShareAlt />}
-            fontSize="16px"
-            cursor="pointer"
-            backgroundColor="white"
-            py={0}
-          >
-            Share
-          </MenuButton>
+          <MenuButton {...MenuBtn} leftIcon={<BiShareAlt/>}>Share </MenuButton>
           <MenuList>
             <MenuItem icon={<FaFacebook color={"blue"} />}>Facebook</MenuItem>
-            <MenuItem icon={<FaInstagramSquare color={"#860c0c"} />}>
-              Instagram
-            </MenuItem>
+            <MenuItem icon={<FaInstagramSquare color={"#860c0c"} />}> Instagram </MenuItem>
             <MenuItem icon={<FaTiktok />}>Tiktok</MenuItem>
           </MenuList>
         </Menu>
       </CardFooter>
     </Card>
+
+    <Drawer onClose={onClose} isOpen={isOpen} size={"xl"}>
+      <DrawerOverlay />
+      <DrawerContent>
+        <DrawerCloseButton />
+        <DrawerHeader>{activity.title}</DrawerHeader>
+        <DrawerBody>
+          <Text>{activity.description}</Text>
+        </DrawerBody>
+      </DrawerContent>
+    </Drawer>
+  </>
   );
 }
 //<Button {...Buttons} leftIcon={<BiShareAlt />}>        Share </Button>
@@ -107,4 +102,12 @@ const Buttons = {
 
 const Footer = {
   justify:'space-between',
+}
+
+const MenuBtn = {
+  as: Button,
+  fontSize: "16px",
+  cursor: "pointer",
+  backgroundColor: "white",
+  py: 0,
 }
