@@ -1,4 +1,11 @@
-import { Avatar, Box, Card, CardBody, CardHeader, Flex, Heading, Text, Image, CardFooter, Button, Menu, MenuList, MenuItem, MenuButton, useDisclosure, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, } from "@chakra-ui/react";
+import { Avatar, Box, Card, 
+  CardBody, CardHeader, Flex, 
+  Heading, Text, Image, 
+  CardFooter, Button, Menu, 
+  MenuList, MenuItem, MenuButton, 
+  useDisclosure, Drawer, DrawerOverlay, 
+  DrawerContent, DrawerCloseButton, 
+  DrawerBody, Input, Textarea, } from "@chakra-ui/react";
 import { BsThreeDots  } from 'react-icons/bs';
 import { BiShareAlt } from "react-icons/bi";
 import { FaCommentMedical } from "react-icons/fa6";
@@ -8,13 +15,9 @@ import { FaInstagramSquare } from "react-icons/fa";
 import { FaTiktok } from "react-icons/fa";
 import { Activity } from "../../models/Activity";
 import Shirdagh from '../../assets/shirdagh.jpg';
-import { DetailsActivity } from "../../main_pages/activities/details/Details";
-
-
 
 export default function ActivityCard2 ({ activity }: { activity: Activity }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
 
   const handleClick = () => {
     onOpen();
@@ -60,33 +63,57 @@ export default function ActivityCard2 ({ activity }: { activity: Activity }) {
       />
 
       <CardFooter {...Footer} flexWrap="wrap">
-        <Button {...Buttons} leftIcon={<FcLike />}> Like </Button>
+        <Button {...Buttons} leftIcon={<FcLike />}>           Like </Button>
         <Button {...Buttons} leftIcon={<FaCommentMedical />}> Comment </Button>
-        <Menu>
-          <MenuButton {...MenuBtn} leftIcon={<BiShareAlt/>}>Share </MenuButton>
+        <Menu>              
+          <MenuButton {...MenuBtn} leftIcon={<BiShareAlt/>}>  Share </MenuButton>
           <MenuList>
-            <MenuItem icon={<FaFacebook color={"blue"} />}>Facebook</MenuItem>
-            <MenuItem icon={<FaInstagramSquare color={"#860c0c"} />}> Instagram </MenuItem>
+            <MenuItem icon={<FaFacebook color={"blue"} />}>   Facebook</MenuItem>
+            <MenuItem icon={<FaInstagramSquare color={"#860c0c"}/>}> Instagram </MenuItem>
             <MenuItem icon={<FaTiktok />}>Tiktok</MenuItem>
           </MenuList>
         </Menu>
       </CardFooter>
     </Card>
-
     <Drawer onClose={onClose} isOpen={isOpen} size={"xl"}>
-      <DrawerOverlay />
-      <DrawerContent>
-        <DrawerCloseButton />
-        <DrawerHeader>{activity.title}</DrawerHeader>
-        <DrawerBody>
-          <Text>{activity.description}</Text>
+  <Box marginBottom={10}>
+    <DrawerOverlay scrollSnapType={'both'} />
+    <DrawerContent
+      padding={'3vw'}
+      borderWidth={2}
+      borderLeftRadius={10}
+      overflowY="auto" // Set overflow-y to auto
+    >
+      <DrawerCloseButton />
+      <Image marginBottom={5} boxSize={'inherit'} src={activity.imageUrl ? activity.imageUrl : Shirdagh} />
+      <Box borderWidth={2} borderRadius={10} padding={5} marginBottom={50}>
+        <Input {...Header} defaultValue={activity.title} />
+        <DrawerBody padding={0}>
+          <Textarea
+            marginBottom={'10px'}
+            contentEditable={'true'}
+            h={'200px'}
+            whiteSpace={'pre-wrap'}
+            focusBorderColor={'false'}
+            maxBlockSize={250}
+            defaultValue={activity.description}
+          />
         </DrawerBody>
-      </DrawerContent>
-    </Drawer>
+        <Button backgroundColor={'red'} textColor={'white'} marginTop={3}>
+          Save
+        </Button>
+      </Box>
+    </DrawerContent>
+  </Box>
+</Drawer>
   </>
   );
 }
-//<Button {...Buttons} leftIcon={<BiShareAlt />}>        Share </Button>
+
+const Header = {
+  fontWeight: 'bold',
+  fontSize: 20,
+}
 
 const FlexAvatar = {
   flex:'1',
@@ -111,3 +138,4 @@ const MenuBtn = {
   backgroundColor: "white",
   py: 0,
 }
+
