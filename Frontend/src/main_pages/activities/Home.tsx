@@ -1,11 +1,11 @@
 
-import { VStack } from "@chakra-ui/react";
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import { Activity } from "../../models/Activity";
 import { useStore } from "../../stores/Store";
 import ActivityDashboard from "./dashboards/ActivityDashboard";
 import axios from "axios";
+import { VStack } from "@chakra-ui/react";
 
 function Home() {
 

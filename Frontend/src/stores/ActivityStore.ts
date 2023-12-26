@@ -10,41 +10,52 @@ export default class ActivityStore {
   loadingInitial = false;
 
   constructor() {
-    makeAutoObservable(this)
+    makeAutoObservable(this);
   }
 
   loadActivities = async () => {
     this.setLoadingInitial(true);
     try {
       const response = await agent.Activities.list();
-      response.forEach(activity => {
-        activity.date = activity.date.split('T')[0];
+      response.forEach((activity) => {
+        activity.date = activity.date.split("T")[0];
         this.activities.push(activity);
       });
-      this.setLoadingInitial(false)
-
+      this.setLoadingInitial(false);
     } catch (error) {
-      this.setLoadingInitial(false)
+      this.setLoadingInitial(false);
     }
-  }
-  
+  };
+
   setLoadingInitial = (state: boolean) => {
     this.loadingInitial = state;
-  }
+  };
 
   editActivity = async (activity: Activity) => {
-    console.log("Updated data: " + activity.description)
+    console.log("Updated data: " + activity.description);
 
     try {
       const response = await agent.Activities.update(activity);
-      if(response) {
-        console.log("This looks like a success response: ", response)
+      if (response) {
+        console.log("This looks like a success response: ", response);
       }
-
     } catch (error) {
-      console.log("An error happened while editing...", error)
+      console.log("An error happened while editing...", error);
     }
-  }
+  };
+
+  deleteActivity = async (id: string) => {
+    console.log("Deleting activity with id: " + id);
+
+    try {
+      const response = await agent.Activities.delete(id);
+      if (response) {
+        console.log("This looks like a success response: ", response);
+      }
+    } catch (error) {
+      console.log("An error happened while deleting...", error);
+    }
+  };
 }
 
 

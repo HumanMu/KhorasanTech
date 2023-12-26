@@ -8,3 +8,9 @@ export interface Activity {
   venue: string;  // navnet på stedet hvor aktivititen afholdes
   imageUrl: string;
 }
+
+export interface AddActivity {
+  title: string;
+  description: string;
+  imageUrl?: string;
+}

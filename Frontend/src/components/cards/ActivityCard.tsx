@@ -15,6 +15,7 @@ import { Activity } from "../../models/Activity";
 import Shirdagh from '../../assets/shirdagh.jpg';
 import { useState } from "react";
 import EditActivity from "../../main_pages/activities/edit/EditActivity";
+import { useStore } from "../../stores/Store";
 
 
 interface Props {
@@ -26,9 +27,13 @@ function ActivityCard ({
   activity,
 }: Props) { // Input activity hedder "selectedActivity" i denne fil
   const [isEditing, setIsEditing] = useState(false);
+  const {activityStore} = useStore();
 
   function handleEdit(isEditing: boolean) {
     setIsEditing(isEditing);
+  }
+  function handleDelete() {
+    activityStore.deleteActivity(activity.id);
   }
 
   return (
@@ -52,7 +57,7 @@ function ActivityCard ({
                 <MenuItem {...MItems} onClick={() => handleEdit(true)}>
                   Edit
                 </MenuItem>
-                <MenuItem {...MItems}> Delete</MenuItem>
+                <MenuItem {...MItems} onClick={handleDelete}> Delete</MenuItem>
                 <MenuItem {...MItems}> Report</MenuItem>
               </MenuList>
             </Menu>

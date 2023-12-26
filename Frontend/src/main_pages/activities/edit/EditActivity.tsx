@@ -12,7 +12,7 @@ import { useStore } from "../../../stores/Store";
 
 
 interface Props {
-  activity: Activity | undefined;
+  activity?: Activity | undefined;
   closeEditMode: () => void;
 }
 

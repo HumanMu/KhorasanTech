@@ -68,5 +68,19 @@ namespace API.Controllers
             return Ok(); // Eller en anden passende responskode
         }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteActivity(Guid id)
+        {
+            var activity = await _context.Activities.FindAsync(id);
+
+            if (activity == null) return BadRequest("Activity not found");
+
+            // Deleting from database
+            _context.Activities.Remove(activity);
+            await _context.SaveChangesAsync();
+
+            return Ok("Your Activity removed");
+        }
+
     }
 }
