@@ -31,6 +31,20 @@ export default class ActivityStore {
   setLoadingInitial = (state: boolean) => {
     this.loadingInitial = state;
   }
+
+  editActivity = async (activity: Activity) => {
+    console.log("Updated data: " + activity.description)
+
+    try {
+      const response = await agent.Activities.update(activity);
+      if(response) {
+        console.log("This looks like a success response: ", response)
+      }
+
+    } catch (error) {
+      console.log("An error happened while editing...", error)
+    }
+  }
 }
 
 

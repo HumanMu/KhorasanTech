@@ -1,7 +1,6 @@
 
 import { VStack } from "@chakra-ui/react";
 import { observer } from "mobx-react-lite";
-import ActivityDashboard from "./dashboards/ActivityList";
 import { useEffect, useState } from "react";
 import { Activity } from "../../models/Activity";
 import axios from "axios";
@@ -23,12 +22,11 @@ function Home() {
       });
       setActivities(splitActivities);
     })
-  })
+  }, [activities])
 
   return (
     <>
       <VStack maxW={'100vw'}>
-        <ActivityDashboard activities={activities}/>
       </VStack>
     </>
   );

@@ -1,27 +1,46 @@
-import { Box, Input, VStack } from "@chakra-ui/react";
+import {VStack } from "@chakra-ui/react";
 import { Activity } from "../../../models/Activity";
-import ActivityCard2 from "../../../components/cards/ActivityCard2";
+import ActivityCard from "../../../components/cards/ActivityCard";
 
 interface Props {
-  activities: Activity[],
+  activities: Activity[];
+  selectedActivity: Activity | undefined;
+  //selectActivity: (id: string) => void;
+  cancelSelectedActivity: () => void;
+  editMode: boolean;
+  openForm: (id: string) => void;
+  closeForm: () => void;
+  createOrEditActivity: (activity: Activity) => void;
+  
 }
 
-export default function ActivityList({activities} : Props) {
+function ActivityList({
+  activities,
+  selectedActivity,
+  cancelSelectedActivity,
+  editMode,
+  openForm,
+  closeForm,
+  createOrEditActivity
+} : Props) {
 
   return(
     <VStack justifyItems={"left"} maxW={'100vw'} marginTop={70}>
-      <Box width={'100%'}>
-        <Input width={'100%'} placeholder="What do you have in mind?" >
-        
-        </Input>
-      </Box>
       {activities.map((activity: Activity) => (
-        <ActivityCard2
+        <ActivityCard 
           key={activity.id}
           activity={activity}
-        ></ActivityCard2>
+          createOrEditActivity={createOrEditActivity}
+          cancelSelectedActivity={cancelSelectedActivity}
+          closeForm={closeForm}
+          openForm={openForm} 
+          selectedActivity={selectedActivity} 
+          editMode={editMode}        
+        ></ActivityCard>
       ))}
     </VStack>
   )
 
 }
+
+export default ActivityList; 
