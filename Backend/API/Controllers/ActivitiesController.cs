@@ -53,5 +53,20 @@ namespace API.Controllers
 
         }
 
+        [HttpPost("{id}")]
+        public async Task<ActionResult> UpdateActivity(ActivityDto activityDto)
+        {
+            var activity = await _context.Activities.FindAsync(activityDto.Id);
+
+            if (activity == null) return BadRequest("Activity not found");
+
+            _mapper.Map(activityDto, activity);
+
+            // Gem ændringer i databasen
+            await _context.SaveChangesAsync();
+
+            return Ok(); // Eller en anden passende responskode
+        }
+
     }
 }

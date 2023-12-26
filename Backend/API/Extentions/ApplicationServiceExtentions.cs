@@ -23,7 +23,9 @@ namespace API.Extentions
             services.AddAutoMapper(config =>
             {
                 config.CreateMap<Activity, ActivityDto>();
+                config.CreateMap<ActivityDto, Activity>();
                 config.CreateMap<UserDto, LoginDto>();
+
             });
 
             return services;

@@ -5,7 +5,7 @@ import { LoadingService } from "./services/LoadingService";
 
 const sleepTimer = (delay: number) => {
   // To define loading spinner
-  return new Promise((resolve) => {  
+  return new Promise((resolve) => {
     setTimeout(resolve, delay);
   });
 };
@@ -43,7 +43,7 @@ const loadingService = new LoadingService();
       const response = await axios.get<T>(url);
       return responseBody(response);
     } finally {
-      loadingService.stopLoading(); 
+      loadingService.stopLoading();
     }
   },
   post: <T>(url: string, body: {}) => {
@@ -74,13 +74,13 @@ const Account =  {
   login: (user: UserFormLogin) => requests.post<User>("/account/login", user),
   register: (user: UserFormRegister) => requests.post<string>("/account/register", user),
 };
- 
+
 const Activities = {
   list: () =>  requests.get<Activity[]>("/activities"), // Taking the reponse from Api and putting into the "list"
   details: (id: string) => requests.get<Activity>(`/activities/${id}`),
   create: (activity: Activity) => axios.post<void>("/activities", activity),
   update: (activity: Activity) =>
-    axios.post<void>(`/activities${activity.id}`, activity),
+    axios.post<void>(`/activities/${activity.id}`, activity),
   delete: (id: string) => axios.delete<void>(`/activities${id}`),
 };
 

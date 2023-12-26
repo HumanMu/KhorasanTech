@@ -36,14 +36,13 @@ const ChatRoom = () => {
         <HStack>
           <VStack>
             <Text {...ChatView}>
-              {" "}
               {messageList.map((msg, index) => (
                 <MessageCard
                   key={index}
                   name={msg.sender}
                   message={msg.message}
                 />
-              ))}{" "}
+              ))}
             </Text>
             <Box {...MessageArea}>
               <HStack display="flex" alignItems="center">
@@ -67,9 +66,8 @@ const ChatRoom = () => {
             <VStack spacing={0}>
               {users.map((user, index) => (
                 <UserCard
-                  key={user.userName}
-                  users={users[index]}
-                  bg={index}
+                  key={index}
+                  user={user}
                 ></UserCard>
               ))}
             </VStack>

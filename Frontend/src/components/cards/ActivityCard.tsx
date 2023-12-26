@@ -1,8 +1,8 @@
-import { Avatar, Box, Card, 
-  CardBody, CardHeader, Flex, 
-  Heading, Text, Image, 
-  CardFooter, Button, Menu, 
-  MenuList, MenuItem, MenuButton, 
+import { Avatar, Box, Card,
+  CardBody, CardHeader, Flex,
+  Heading, Text, Image,
+  CardFooter, Button, Menu,
+  MenuList, MenuItem, MenuButton,
 } from "@chakra-ui/react";
 import { BsThreeDots  } from 'react-icons/bs';
 import { BiShareAlt } from "react-icons/bi";
@@ -16,99 +16,96 @@ import Shirdagh from '../../assets/shirdagh.jpg';
 import { useState } from "react";
 import EditActivity from "../../main_pages/activities/edit/EditActivity";
 
+
 interface Props {
   activity: Activity ;
-  selectedActivity: Activity | undefined,
-  cancelSelectedActivity: () => void,
-  editMode: boolean;
-  openForm: (id: string) => void;
-  closeForm: () => void;
-  createOrEditActivity: (activity: Activity) => void;
 }
 
 
-function ActivityCard ({ 
-  activity, 
-  selectedActivity,
-  cancelSelectedActivity,
-  editMode,
-  openForm,
-  closeForm,
-  createOrEditActivity
+function ActivityCard ({
+  activity,
 }: Props) { // Input activity hedder "selectedActivity" i denne fil
   const [isEditing, setIsEditing] = useState(false);
 
-  function handleEdit() {
-    setIsEditing(true);
+  function handleEdit(isEditing: boolean) {
+    setIsEditing(isEditing);
   }
-
-  function handleCancelEdit() {
-    setIsEditing(false);
-  }
-
 
   return (
     <>
-    <Card maxW="lg">
-      <CardHeader>
-        <Flex>
-          <Flex flexWrap={"initial"} {...FlexAvatar}>
-            <Avatar
-              name="Human Muzaffari"
-              src="https://www.facebook.com/photo?fbid=6855143707896607&set=a.101171233293922"
-            />
-            <Box>
-              <Heading size="sm">{"Human Muzaffari"} </Heading>
-              <Text>{activity!.title}</Text>
-            </Box>
+      <Card maxW="lg">
+        <CardHeader>
+          <Flex>
+            <Flex flexWrap={"initial"} {...FlexAvatar}>
+              <Avatar
+                name="Human Muzaffari"
+                src="https://www.facebook.com/photo?fbid=6855143707896607&set=a.101171233293922"
+              />
+              <Box>
+                <Heading size="sm">{"Human Muzaffari"} </Heading>
+                <Text>{activity!.title}</Text>
+              </Box>
+            </Flex>
+            <Menu>
+              <MenuButton {...MenuBtn} rightIcon={<BsThreeDots />} />
+              <MenuList>
+                <MenuItem {...MItems} onClick={() => handleEdit(true)}>
+                  Edit
+                </MenuItem>
+                <MenuItem {...MItems}> Delete</MenuItem>
+                <MenuItem {...MItems}> Report</MenuItem>
+              </MenuList>
+            </Menu>
           </Flex>
+        </CardHeader>
+        <CardBody>
+          <Text>
+            With Chakra UI, I wanted to sync the speed of development with the
+            speed of design. I wanted the developer to be just as excited as the
+            designer to create a screen.
+          </Text>
+        </CardBody>
+        <Image
+          objectFit="cover"
+          src={activity?.imageUrl ? activity.imageUrl : Shirdagh}
+          alt={`An image from ${activity?.title}`}
+        />
+
+        <CardFooter {...Footer} flexWrap="-moz-initial">
+          <Button {...Buttons} leftIcon={<FcLike />}>
+            Like
+          </Button>
+          <Button {...Buttons} leftIcon={<FaCommentMedical />}>
+            Comment
+          </Button>
           <Menu>
-            <MenuButton {...MenuBtn} rightIcon={<BsThreeDots />}
-            />
+            <MenuButton {...MenuBtn} leftIcon={<BiShareAlt />}>
+              Share
+            </MenuButton>
             <MenuList>
-              <MenuItem {...MItems} onClick={handleEdit}>Edit</MenuItem>
-              <MenuItem {...MItems}> Delete</MenuItem>
-              <MenuItem {...MItems}> Report</MenuItem>
+              <MenuItem {...MItems} icon={<FaFacebook color={"blue"} />}>
+                Facebook
+              </MenuItem>
+              <MenuItem
+                {...MItems}
+                icon={<FaInstagramSquare color={"#860c0c"} />}
+              >
+                Instagram
+              </MenuItem>
+              <MenuItem {...MItems} icon={<FaTiktok />}>
+                Tiktok
+              </MenuItem>
             </MenuList>
           </Menu>
-        </Flex>
-      </CardHeader>
-      <CardBody>
-        <Text>
-          With Chakra UI, I wanted to sync the speed of development with the
-          speed of design. I wanted the developer to be just as excited as the
-          designer to create a screen.
-        </Text>
-      </CardBody>
-      <Image
-        objectFit="cover"
-        src={activity?.imageUrl ? activity.imageUrl : Shirdagh}
-        alt={`An image from ${activity?.title}`}
-      />
-
-      <CardFooter {...Footer} flexWrap='-moz-initial'>
-        <Button {...Buttons} leftIcon={<FcLike />}>           Like </Button>
-        <Button {...Buttons} leftIcon={<FaCommentMedical />}> Comment </Button>
-        <Menu>              
-          <MenuButton {...MenuBtn} leftIcon={<BiShareAlt/>}>  Share </MenuButton>
-          <MenuList >
-            <MenuItem {...MItems} icon={<FaFacebook color={"blue"} />}>   Facebook</MenuItem>
-            <MenuItem {...MItems} icon={<FaInstagramSquare color={"#860c0c"}/>}> Instagram </MenuItem>
-            <MenuItem {...MItems} icon={<FaTiktok />}>Tiktok</MenuItem>
-          </MenuList>
-        </Menu>
-      </CardFooter>
-    </Card>
-    {isEditing && (
+        </CardFooter>
+      </Card>
+      {isEditing && (
         <EditActivity
           activity={activity}
-          createOrEditActivity={() => {
-            setIsEditing(false);
-          }}
-          cancelSelectedActivity={() => handleCancelEdit}
+          closeEditMode={() => handleEdit(false)}
         />
       )}
-  </>
+    </>
   );
 }
 
