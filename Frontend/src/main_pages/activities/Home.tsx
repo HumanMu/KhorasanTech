@@ -8,13 +8,7 @@ import axios from "axios";
 import { VStack } from "@chakra-ui/react";
 
 function Home() {
-
-  /*const { activityStore } = useStore();
-  useEffect(() => {
-    activityStore.loadActivities();
-  }, [activityStore]);
-*/
-  const { commonStore, userStore } = useStore();
+  const { commonStore, userStore, } = useStore();
   const [activities, setActivities] = useState<Activity[]>([]);
   const [selectedActivity, setSelectedActivity] = useState<
     Activity | undefined
@@ -23,7 +17,18 @@ function Home() {
 
   useEffect(() => {
     if (commonStore.token) {
-      userStore.getUser().finally(() => commonStore.setAppLoaded());
+      //userStore.getUser().finally(() => commonStore.setAppLoaded());
+      axios
+            .get<Activity[]>("http://localhost:5000/api/activities")
+            .then((response) => {
+              const splitActivities = response.data.map((activity) => {
+                const splitDate = activity.date.split("T")[0];
+                activity.date = splitDate;
+                return activity;
+              });
+              setActivities(splitActivities);
+            });
+      commonStore.setAppLoaded();
     } else {
           axios
             .get<Activity[]>("http://localhost:5000/api/activities")

@@ -3,12 +3,11 @@ import {Drawer, DrawerOverlay,
   DrawerContent, DrawerCloseButton,
   DrawerBody, Input, Textarea,
   FormControl, FormLabel, Image,
-
 } from "@chakra-ui/react";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Activity } from "../../../models/Activity";
-import Shirdagh from "../../../assets/shirdagh.jpg"
 import { useStore } from "../../../stores/Store";
+import FileUpload from "./FileUpload";
 
 
 interface Props {
@@ -17,7 +16,7 @@ interface Props {
 }
 
 
-export default function EditActivity({
+export default function ActivityDrawer({
   activity: selectedActivity,
   closeEditMode,
 }: Props) {
@@ -39,7 +38,7 @@ export default function EditActivity({
   useEffect(() => {
     setActivity(selectedActivity || initialState);
     onOpen();
-  }, [selectedActivity, initialState]);
+  }, []);
 
   function handleInputChanges(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -71,11 +70,11 @@ export default function EditActivity({
             overflowY="auto" // Set overflow-y to auto
           >
             <DrawerCloseButton />
-            <Image
+            { activity.imageUrl? (<Image
               borderRadius={10}
               marginBottom={5}
-              src={activity.imageUrl ? activity.imageUrl : Shirdagh}
-            />
+              src={activity.imageUrl}
+            />) : <FileUpload/>}
             <Box borderRadius={10} marginBottom={50}>
               <FormControl isRequired>
                 <FormLabel marginTop={2} marginBottom={0}>

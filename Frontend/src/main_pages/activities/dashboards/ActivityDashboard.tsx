@@ -2,7 +2,7 @@ import { Box, VStack, Text } from "@chakra-ui/react";
 import { Activity } from "../../../models/Activity";
 import ActivityCard from "../../../components/cards/ActivityCard";
 import { useState } from "react";
-import EditActivity from "../edit/EditActivity";
+import ActivityDrawer from "../crud/ActivityDrawer";
 
 interface Props {
   activities: Activity[];
@@ -32,7 +32,7 @@ export default function ActivityDashboard({ activities }: Props) {
         <Text>Wanna share anything ...</Text>
       </Box>
       {isAdding && (
-        <EditActivity
+        <ActivityDrawer
           closeEditMode={() => handleCancelActivity()}
         />
       )}

@@ -14,8 +14,8 @@ import { FaTiktok } from "react-icons/fa";
 import { Activity } from "../../models/Activity";
 import Shirdagh from '../../assets/shirdagh.jpg';
 import { useState } from "react";
-import EditActivity from "../../main_pages/activities/edit/EditActivity";
 import { useStore } from "../../stores/Store";
+import ActivityDrawer from "../../main_pages/activities/crud/ActivityDrawer";
 
 
 interface Props {
@@ -105,7 +105,7 @@ function ActivityCard ({
         </CardFooter>
       </Card>
       {isEditing && (
-        <EditActivity
+        <ActivityDrawer
           activity={activity}
           closeEditMode={() => handleEdit(false)}
         />
